@@ -6,7 +6,6 @@
 	align-items: center;
 	font-size: 16px;
 	line-height: 20px;
-
 	background: var(--primary);
 	padding: 5px 30px;
 }
@@ -26,7 +25,6 @@
 		display: grid;
 		grid-template-columns: 1fr auto;
 		gap: 40px;
-	
 		font-size: 14px;
 		line-height: 17px;
 	}
