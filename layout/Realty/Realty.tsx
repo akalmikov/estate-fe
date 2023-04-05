@@ -5,8 +5,9 @@ import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '@/context/app.context';
 import axios from 'axios';
 import AwesomeSlider from 'react-awesome-slider';
-import AwesomeSliderStyles from 'react-awesome-slider/src/core/styles.scss';
+// import AwesomeSliderStyles from 'react-awesome-slider/src/core/styles.scss';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
+import 'react-awesome-slider/dist/styles.css';
 
 interface Image {
 	src: string;
@@ -46,7 +47,11 @@ export const RealtyItem = (): JSX.Element => {
 		}, []);
 
 		return (
-			<AwesomeSlider animation='cubeAnimation' transitionDelay={200} cssModule={AwesomeSliderStyles}>
+			<AwesomeSlider
+				animation='cubeAnimation'
+				transitionDelay={200}
+				// cssModule={AwesomeSliderStyles}
+			>
 				{images.map((image, index) => (
 					<div key={index} data-src={image.src} />
 				))}
