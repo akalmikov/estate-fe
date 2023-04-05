@@ -1,0 +1,146 @@
+.realties {
+	display: grid;
+	grid-template-columns: auto;
+	gap: 10px;
+	max-width: 1000px;
+}
+
+.price {
+	align-items: center;
+	font-size: 36px;
+	font-weight: 700;
+	line-height: 50px;
+}
+
+.ul {
+	display: grid;
+	grid-template-columns: auto;
+	list-style-type: none;
+	margin-block-start: 2%;
+	margin-block-end: 30px;
+}
+
+.li {
+	display: grid;
+	grid-template-columns: minmax(500px, 500px), 300px;
+	grid-template-rows: minmax(220px, auto);
+	grid-template-areas: "image detais";
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+	border-bottom: 3px solid var(--powder-blue);
+	margin-bottom: 16px;
+	padding-bottom: 16px;
+}
+
+.details {
+	grid-area: detais;
+	margin-block-start: 0;
+	margin-block-end: 0;
+	line-height: 22px;
+	margin-inline-start: 1.5em;
+	margin-inline-end: 0;
+	z-index: 1;
+	display: grid;
+	position: absolute;
+}
+
+.awssld nav {
+	bottom: 10px;
+}
+
+.awssld nav button{
+	width: 10px;
+	height: 10px;
+}
+
+.awssld  {
+	grid-area: image;
+	position: initial;
+}
+
+.awssld div {
+	--loader-bar-color: var(--argentinian-blue);
+	--control-bullet-color: var(--primary);
+	--control-bullet-active-color: var(--primary-hover);
+}
+
+@media (max-width: 765px) {
+	.ul {
+		margin-block-start: 0;
+		margin-block-end: 0;
+		padding-inline-start: 0;
+		margin-top: 1em;
+		justify-items: center;
+	}
+
+	.li {
+		display: grid;
+		grid-template-rows: auto;
+		grid-template-areas: 
+			"image"
+			"detais";
+		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+		border-bottom: 2px solid var(--powder-blue);
+		margin-inline-start: 1em;
+		margin-inline-end: 1em;
+		margin-bottom: 16px;
+		padding-bottom: 16px;
+	}
+	
+	.details {
+		margin-top: 16px;
+		grid-area: detais;
+		width: 390px;
+		margin-inline-start: 0.75em;
+		margin-inline-end: 0.75em;
+		position: initial;
+		justify-items: center;
+	}
+
+	.awssld  {
+		grid-area: image;
+		width: 414px;
+		position: static;
+	}
+
+}
+
+@media (max-width: 400px) {
+	.ul {
+		margin-block-start: 0;
+		margin-block-end: 0;
+		padding-inline-start: 0;
+		margin-top: 1em;
+		justify-items: center;
+	}
+
+	.li {
+		display: grid;
+		grid-template-rows: auto;
+		grid-template-areas: 
+			"image"
+			"detais";
+		filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+		border-bottom: 2px solid var(--primary);
+		margin-inline-start: 0;
+		margin-inline-end: 0;
+		margin-bottom: 16px;
+		padding-bottom: 16px;
+	}
+	
+	.details {
+		margin-top: 16px;
+		grid-area: detais;
+		width: 390px;
+		margin-inline-start: 0;
+		margin-inline-end: 0;
+		position: initial;
+		justify-items: center;
+	}
+
+	.awssld  {
+		grid-area: image;
+		width: auto;
+		position: static;
+	}
+
+}

@@ -1,0 +1,38 @@
+.tag {
+	display: inline-block;
+	box-sizing: border-box;
+	margin-right: 5px;
+	border-radius: 20px;
+}
+
+.s {
+	padding: 5px 10px;
+	font-size: 12px;
+	line-height: 12px;
+}
+
+.m {
+	padding: 5px 10px;
+	font-size: 14px;
+	line-height: 14px;
+}
+
+.gray {
+	color: var(--argentinian-blue);
+	background: var(--gray-light);
+}
+
+.blue {
+	color: var(--argentinian-blue);
+	background: var(--powder-blue);
+}
+
+.red {
+	color: var(--black);
+	background: #D63636;
+}
+
+.primary {
+	color: var(--primary);
+	background: var(--argentinian-blue);
+}
