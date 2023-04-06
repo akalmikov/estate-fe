@@ -59,7 +59,7 @@
 
 .awssld div {
 	--loader-bar-color: var(--argentinian-blue);
-	--control-bullet-color: var(--primary);
+	--control-bullet-color: var(--argentinian-blue);
 	--control-bullet-active-color: var(--primary-hover);
 }
 
