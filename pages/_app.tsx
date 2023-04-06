@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 			<script async src="https://www.googletagmanager.com/gtag/js?id=G-FRNJCTGK53"></script>
 			<script>
 				window.dataLayer = window.dataLayer || [];
-				function gtag(){dataLayer.push(arguments);}
+				function gtag(){dataLayer.push(arguments)}
 				gtag('js', new Date());
 
 				gtag('config', 'G-FRNJCTGK53');
@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
 				src="https://www.facebook.com/tr?id=1076107899983407&ev=PageView&noscript=1"
 			/></noscript>
 			<!-- End Meta Pixel Code -->
-			
+
 			<title>
 				Radius real estate Київ
 			</title>
