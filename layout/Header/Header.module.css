@@ -8,7 +8,7 @@
 	width: 214px;
 	height: 50px;
 	left: 5%;
-	top: 25px;
+	top: 15px;
 }
 
 .title {
@@ -17,7 +17,7 @@
 	width: 167px;
 	height: 35px;
 	left: calc(50% - 100%/2 + 30%);
-	top: 5px;
+	top: 9px;
 	font-family: Roboto;
 	font-style: normal;
 	font-weight: 500;

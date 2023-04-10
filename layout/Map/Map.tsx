@@ -1,8 +1,8 @@
-import { SidebarProps } from './Sidebar.props';
+import { MapProps } from './Map.props';
 import cn from 'classnames';
 import { RealtyItem } from '../Realty/Realty';
 
-export const Sidebar = ({ ...props }: SidebarProps): JSX.Element => {
+export const Map = ({ ...props }: MapProps): JSX.Element => {
 	return (
 		<div { ...props }>
 		</div>

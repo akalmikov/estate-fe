@@ -1,13 +1,13 @@
 import cn from 'classnames';
 import styles from './Realty.module.css'
-import { Realty } from '@/interfaces/realty.interface';
 import { useContext, useEffect, useState } from 'react';
 import { AppContext } from '@/context/app.context';
 import axios from 'axios';
 import AwesomeSlider from 'react-awesome-slider';
-// import AwesomeSliderStyles from 'react-awesome-slider/src/core/styles.scss';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
 import 'react-awesome-slider/dist/styles.css';
+import { GetStaticProps } from 'next';
+import { RealtyProps } from './Realty.props';
 
 interface Image {
 	src: string;
@@ -21,13 +21,32 @@ interface TgImg {
 	}
 }
 
-export const RealtyItem = (): JSX.Element => {
+export const RealtyItem: React.FC<RealtyProps>= ({ }): JSX.Element => {
 
 	const { realty, setRealty } = useContext(AppContext)
 
-	const realtyItemBlock = () => {
+	const [visiblePosts, setVisiblePosts] = useState(realty);
 
-	}
+	const handleScroll = () => {
+		const scrollY = window.scrollY;
+		const windowHeight = window.innerHeight;
+		const fullHeight = document.documentElement.scrollHeight;
+
+		if (scrollY + windowHeight >= fullHeight) {
+			setVisiblePosts((prevVisiblePosts) => {
+				const lastVisiblePostIndex = realty.indexOf(prevVisiblePosts[prevVisiblePosts.length - 1]);
+				const nextVisiblePosts = realty.slice(lastVisiblePostIndex + 1, lastVisiblePostIndex + 11);
+				return [...prevVisiblePosts, ...nextVisiblePosts];
+			});
+		}
+	};
+
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, []);
 
 	const getImagesFromTelegraph = (link: string) => {
 		const [images, setImages] = useState<Image[]>([]);
@@ -36,7 +55,7 @@ export const RealtyItem = (): JSX.Element => {
 			axios.get(link)
 				.then(response => {
 					const images: Image[] = response.data['result']['content'].map((el: TgImg) => ({
-						src: 'https://telegra.ph/' + el.attrs.src || '',
+						src: 'https://telegra.ph' + el.attrs.src || '',
 						alt: el.attrs.src || '',
 					}));
 					setImages(images);
@@ -63,7 +82,7 @@ export const RealtyItem = (): JSX.Element => {
 
 		<ul className={styles.ul}>
 			<div className={styles.realties}>
-				{realty.map(d => <li key={d.id}>
+				{visiblePosts.map(d => <li key={d.id}>
 					<div className={styles.li}>
 						<div className={styles.details}>
 							<div className={styles.rid}>

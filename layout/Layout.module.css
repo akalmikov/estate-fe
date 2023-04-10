@@ -1,12 +1,13 @@
 .wrapper {
 	display: grid;
-	grid-template-columns: minmax(400px, 900px) auto;
-	grid-template-rows: 100px 1fr auto;
+	grid-template-columns: minmax(400px, 800px) auto;
+	grid-template-rows: 80px 60px 1fr auto;
 	min-height: 100vh;
-	gap: 0 30px;
+	/* gap: 0 30px; */
 	grid-template-areas: 
 		"header header"
-		"body sidebar"
+		"filter map"
+		"body map"
 		"footer footer";
 }
 
@@ -15,7 +16,7 @@
 	grid-area: header;
 	position: fixed;
 	z-index: 100;
-	height: 100px;
+	height: 80px;
 	width: 100%;
 	left: 0px;
 	top: 0px;
@@ -23,8 +24,24 @@
 	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
-.sidebar {
-	grid-area: sidebar;
+.filter {
+	display: flex;
+	flex-direction: row;
+	position: relative;
+	align-items: center;
+	grid-area: filter;
+	gap: 0 20px;
+	height: 80px;
+	width: 100%;
+	left: 0px;
+	top: 0px;
+	z-index: 1;
+
+	/* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)); */
+}
+
+.map {
+	grid-area: map;
 }
 
 .body {
@@ -41,11 +58,12 @@
 		grid-template-columns: minmax(320px, 1fr);
 		grid-template-areas: 
 			"header"
+			"filter"
 			"body"
 			"footer";
 	}
 
-	.sidebar {
+	.map {
 		display: none;
 	}
 
