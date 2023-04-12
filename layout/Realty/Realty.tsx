@@ -34,11 +34,11 @@ export const RealtyItem: React.FC<RealtyProps> = ({ }): JSX.Element => {
 			const page = 0 * 50;
 			const response = await axios.get<Realty[]>(process.env.NEXT_PUBLIC_DOMAIN + `/api/ads?offset=${page}`,
 				{
-					headers: {
-						'Access-Control-Allow-Origin': '*',
-						"Referer": "https://radius.estate",
-						"Referrer-Policy": "strict-origin-when-cross-origin"
-					}
+					// headers: {
+						// 'Access-Control-Allow-Origin': '*',
+						// "Referer": "https://radius.estate",
+						// "Referrer-Policy": "strict-origin-when-cross-origin"
+					// }
 				});
 			setRealty(response.data);
 		};
