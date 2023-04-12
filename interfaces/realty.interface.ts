@@ -8,7 +8,7 @@ export interface Realty {
 	sub_district: string
 	street: string
 	surface: number
-	telegraph: string
+	photos: string
 	active: boolean
 	pets: boolean
 }
