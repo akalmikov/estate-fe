@@ -1,7 +1,4 @@
 import { withLayout } from '@/layout/Layout';
-import { GetStaticProps } from 'next';
-import axios from 'axios';
-import { Realty } from '@/interfaces/realty.interface';
 import { RealtyProps } from '@/layout/Realty/Realty.props';
 
 function Home({ }: RealtyProps): JSX.Element {

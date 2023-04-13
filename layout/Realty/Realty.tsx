@@ -1,49 +1,24 @@
-import cn from 'classnames';
 import styles from './Realty.module.css'
-import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '@/context/app.context';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
 import 'react-awesome-slider/dist/styles.css';
-import { GetStaticProps } from 'next';
 import { RealtyProps } from './Realty.props';
 import { Realty } from '@/interfaces/realty.interface';
 
-interface Image {
-	src: string;
-	alt: string;
-}
-
-interface TgImg {
-	tag: string;
-	attrs: {
-		src: string;
-	}
-}
-
-export const RealtyItem: React.FC<RealtyProps> = ({ }): JSX.Element => {
-
-	// const { realty, setRealty } = useContext(AppContext)
+export const RealtyItem: React.FC<RealtyProps> = (): JSX.Element => {
 
 	const [realty, setRealty] = useState<Realty[]>([]);
-	const [visiblePosts, setVisiblePosts] = useState(realty.slice(0, 10));
+	const [page, setPage] = useState(0);
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const page = 0 * 50;
-			const response = await axios.get<Realty[]>(process.env.NEXT_PUBLIC_DOMAIN + `/api/ads?offset=${page}`,
-				{
-					// headers: {
-						// 'Access-Control-Allow-Origin': '*',
-						// "Referer": "https://radius.estate",
-						// "Referrer-Policy": "strict-origin-when-cross-origin"
-					// }
-				});
-			setRealty(response.data);
+			const { data } = await axios.get<Realty[]>(process.env.NEXT_PUBLIC_DOMAIN + `/api/ads?offset=${page}`);
+			setRealty([...realty, ...data]);
 		};
 		fetchData();
-	}, []);
+	}, [page]);
 
 	if (!realty) {
 		return <div>Loading...</div>;
@@ -53,13 +28,8 @@ export const RealtyItem: React.FC<RealtyProps> = ({ }): JSX.Element => {
 		const scrollY = window.scrollY;
 		const windowHeight = window.innerHeight;
 		const fullHeight = document.documentElement.scrollHeight;
-
 		if (scrollY + windowHeight >= fullHeight) {
-			setVisiblePosts((prevVisiblePosts) => {
-				const lastVisiblePostIndex = realty.indexOf(prevVisiblePosts[prevVisiblePosts.length - 1]);
-				const nextVisiblePosts = realty.slice(lastVisiblePostIndex + 1, lastVisiblePostIndex + 11);
-				return [...prevVisiblePosts, ...nextVisiblePosts];
-			});
+			setPage(page + 20);
 		}
 	};
 
@@ -68,7 +38,7 @@ export const RealtyItem: React.FC<RealtyProps> = ({ }): JSX.Element => {
 		return () => {
 			window.removeEventListener('scroll', handleScroll);
 		};
-	}, []);
+	}, [page]);
 
 	const makeImageSlider = (images: string) => {
 
@@ -84,7 +54,6 @@ export const RealtyItem: React.FC<RealtyProps> = ({ }): JSX.Element => {
 	}
 
 	return (
-
 		<ul className={styles.ul}>
 			<div className={styles.realties}>
 				{realty.map((d: Realty) => <li key={d.id}>
