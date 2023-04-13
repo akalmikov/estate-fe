@@ -13,7 +13,11 @@ export const RealtyItem: React.FC<RealtyProps> = (): JSX.Element => {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const { data } = await axios.get<Realty[]>(process.env.NEXT_PUBLIC_DOMAIN + `/api/ads?offset=${page}`);
+			const { data } = await axios.get<Realty[]>(process.env.NEXT_PUBLIC_DOMAIN + `/api/ads?offset=${page}`, {
+				headers: {
+					"Access-Control-Allow-Origin": "*"
+				}
+			});
 			setRealty([...realty, ...data]);
 		};
 		fetchData();
