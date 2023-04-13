@@ -8,7 +8,6 @@ import { RealtyProps } from './Realty.props';
 import { Realty } from '@/interfaces/realty.interface';
 
 export const RealtyItem: React.FC<RealtyProps> = (): JSX.Element => {
-
 	const [realty, setRealty] = useState<Realty[]>([]);
 	const [page, setPage] = useState(0);
 
