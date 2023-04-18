@@ -1,69 +1,61 @@
-import cn from 'classnames';
 import styles from './Realty.module.css'
-import { Realty } from '@/interfaces/realty.interface';
-import { useContext, useEffect, useState } from 'react';
-import { AppContext } from '@/context/app.context';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import AwesomeSlider from 'react-awesome-slider';
-// import AwesomeSliderStyles from 'react-awesome-slider/src/core/styles.scss';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
 import 'react-awesome-slider/dist/styles.css';
+import { RealtyProps } from './Realty.props';
+import { Realty } from '@/interfaces/realty.interface';
 
-interface Image {
-	src: string;
-	alt: string;
-}
+export const RealtyItem: React.FC<RealtyProps> = (): JSX.Element => {
+	const [realty, setRealty] = useState<Realty[]>([]);
+	const [page, setPage] = useState(0);
 
-interface TgImg {
-	tag: string;
-	attrs: {
-		src: string;
-	}
-}
+	useEffect(() => {
+		const fetchData = async () => {
+			const { data } = await axios.get<Realty[]>(process.env.NEXT_PUBLIC_DOMAIN + `/api/ads?offset=${page}`);
+			setRealty([...realty, ...data]);
+		};
+		fetchData();
+	}, [page]);
 
-export const RealtyItem = (): JSX.Element => {
-
-	const { realty, setRealty } = useContext(AppContext)
-
-	const realtyItemBlock = () => {
-
+	if (!realty) {
+		return <div>Loading...</div>;
 	}
 
-	const getImagesFromTelegraph = (link: string) => {
-		const [images, setImages] = useState<Image[]>([]);
+	const handleScroll = () => {
+		const scrollY = window.scrollY;
+		const windowHeight = window.innerHeight;
+		const fullHeight = document.documentElement.scrollHeight;
+		if (scrollY + windowHeight >= fullHeight) {
+			setPage(page + 20);
+		}
+	};
 
-		useEffect(() => {
-			axios.get(link)
-				.then(response => {
-					const images: Image[] = response.data['result']['content'].map((el: TgImg) => ({
-						src: 'https://telegra.ph/' + el.attrs.src || '',
-						alt: el.attrs.src || '',
-					}));
-					setImages(images);
-				})
-				.catch(error => {
-					console.error(error);
-				});
-		}, []);
+	useEffect(() => {
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	}, [page]);
+
+	const makeImageSlider = (images: string) => {
 
 		return (
 			<AwesomeSlider
 				animation='cubeAnimation'
-				transitionDelay={200}
-				// cssModule={AwesomeSliderStyles}
-			>
-				{images.map((image, index) => (
-					<div key={index} data-src={image.src} />
+				transitionDelay={200}>
+				{images.split(',').map((image, index) => (
+					<div key={index} data-src={'https://telegra.ph' + image} />
 				))}
 			</AwesomeSlider>
 		);
 	}
 
 	return (
-
 		<ul className={styles.ul}>
 			<div className={styles.realties}>
-				{realty.map(d => <li key={d.id}>
+				{realty.map((d: Realty) => <li key={d.id}>
 					<div className={styles.li}>
 						<div className={styles.details}>
 							<div className={styles.rid}>
@@ -89,8 +81,7 @@ export const RealtyItem = (): JSX.Element => {
 							</div>
 						</div>
 						<div className={styles.awssld}>
-							{/* {d.telegraph.split('/')[3]} */}
-							{getImagesFromTelegraph('https://api.telegra.ph/getPage/' + d.telegraph.split('/')[3] + '?return_content=true')}
+							{makeImageSlider(d.photos)}
 						</div>
 					</div>
 				</li>)}
